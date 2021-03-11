@@ -15,7 +15,7 @@ int main()
     TasksMenu::print(mainTask);
 
     Console::clear();
-    Console::pause("Press any key to exit.");
+    Console::pause("Press Enter to exit.");
 
     return 0;
 }

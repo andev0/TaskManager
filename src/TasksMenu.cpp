@@ -44,6 +44,7 @@ TasksMenu::Result TasksMenu::inputCommands(Task& parentTask, bool generalCommand
 {
     std::vector<Task>& subTasks = parentTask.getSubTasks();
 
+    std::cout << "> ";
     std::string command;
     std::getline(std::cin, command); // For reading line including spaces.
 
@@ -120,9 +121,7 @@ void TasksMenu::print(Task& parentTask)
 
         printTasks(parentTask.getSubTasks());
 
-        std::cout << "\nEnter \"help\" to get list of avaiable commands.\n> ";
-
-
+        std::cout << "\nEnter \"help\" to get list of avaiable commands.\n";
 
         if (inputCommands(parentTask, false) == Result::Back)
         {
@@ -233,7 +232,7 @@ void TasksMenu::taskAction(Task& parentTask, std::string command,
     std::regex_search(command, mathes, std::regex("(\\d+)")); // Getting number
 
     size_t selectedTask = 0;
-    sscanf(mathes[0].str().c_str(), "%lld", &selectedTask); // String to size_t
+    sscanf(mathes[0].str().c_str(), "%zu", &selectedTask); // String to size_t
 
     if (selectedTask <= subTasks.size())
     {

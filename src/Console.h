@@ -10,7 +10,7 @@ class Console
 {
 public:
     static void clear();
-    static void pause(std::string text = "Press any key to continue.");
+    static void pause(std::string text = "Press Enter to continue.");
 
     static void printTable(std::map<std::string, std::string> text,
                            std::string separator = " ");

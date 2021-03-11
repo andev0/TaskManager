@@ -20,7 +20,7 @@ void Saves::save(Task& anyTask)
 
     if (anyTask._parentTask == nullptr)
     {
-        if ( FileSystem::isDirectoryExist(getSavingPath(false)) )
+        if ( !FileSystem::isDirectoryExist(getSavingPath(false)) )
         {
             FileSystem::createDirectory(getSavingPath(false));
         }
@@ -104,6 +104,7 @@ void Saves::loadTaskFromFile(Task* parentTask, std::ifstream& file,
     {
         parentTask->_subTasks.push_back(readedTask);
         task = &parentTask->_subTasks[parentTask->_subTasks.size() - 1];
+        task->_parentTask = parentTask;
     }
 
     for (size_t i = 0; i < subtasksCount; i++)
