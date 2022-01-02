@@ -6,5 +6,6 @@ ToDo app for Windows &amp; Linux console.
 * Create completable tasks and not completable folders
 * Create and delete tasks when you want
 * Change task's completion when you want
+* Use short command aliases for productive work
 * All application data saves just for one PC's user
 * Use app either on Windows and Linux
