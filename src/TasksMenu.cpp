@@ -169,7 +169,7 @@ void TasksMenu::createSubTask(Task& parentTask)
         std::string isCompletableString; // "y" or "n"
         bool isCompletable;
 
-        std::cout << "Enter task's name.\n";
+        std::cout << "Enter task's name (\"cancel\" to cancel task creation).\n";
         std::cout << "> ";
         
         std::getline(std::cin, name);
@@ -188,12 +188,12 @@ void TasksMenu::createSubTask(Task& parentTask)
             continue;
         }
 
-        std::cout << "Enter task's description (or just press Enter if no description).\n> ";
+        std::cout << "Enter task's description (press Enter if no description, \"cancel\" to cancel task creation).\n> ";
         std::getline(std::cin, description);
         
         if (description == "cancel") break;
 
-        std::cout << "do you want the task to be completable? (y/n)\n> ";
+        std::cout << "do you want the task to be completable? (y/n/cancel)\n> ";
         std::getline(std::cin, isCompletableString);
         
         if (isCompletableString == "cancel") break;
