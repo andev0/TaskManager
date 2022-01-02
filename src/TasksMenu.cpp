@@ -48,27 +48,28 @@ TasksMenu::Result TasksMenu::inputCommands(Task& parentTask, bool generalCommand
     std::string command;
     std::getline(std::cin, command); // For reading line including spaces.
 
-    if (std::regex_match(command, std::regex("^back$"))) // "back"
+    if (command == "back" || command == "b")
     {
         return Result::Back;
     }
-    else if (std::regex_match(command, std::regex("^exit$"))) // "exit"
+    else if (command == "exit" || command == "e")
     {
         Console::clear();
         std::exit(0);
     }
     else if (!generalCommands)
     {
-        if (std::regex_match(command, std::regex("^help$"))) // "help"
+        if (command == "help" || command == "h")
         {
             printHelp(parentTask);
         }
-        else if (std::regex_match(command, std::regex("^create$"))) // "create"
+        else if (command == "new" || command == "n")
         {
             createSubTask(parentTask);
         }
-        else if (std::regex_match(command, std::regex("^complete \\d+$")))
-            // "complete [number]"
+        else if (std::regex_match(command, std::regex("^complete \\d+$")) 
+                 || std::regex_match(command, std::regex("^c \\d+$")))
+            // "complete [number]", "c [number]"
         {
             taskAction(parentTask, command, 
                 [&parentTask, &subTasks](int selectedTask) { 
@@ -77,8 +78,9 @@ TasksMenu::Result TasksMenu::inputCommands(Task& parentTask, bool generalCommand
                 }
             );
         }
-        else if (std::regex_match(command, std::regex("^uncomplete \\d+$")))
-            // "uncomplete [number]"
+        else if (std::regex_match(command, std::regex("^uncomplete \\d+$"))
+                 || std::regex_match(command, std::regex("^u \\d+$")))
+            // "uncomplete [number]", "u [number]"
         {
             taskAction(parentTask, command, 
                 [&parentTask, &subTasks](int selectedTask) { 
@@ -87,8 +89,10 @@ TasksMenu::Result TasksMenu::inputCommands(Task& parentTask, bool generalCommand
                 }
             );
         }
-        else if (std::regex_match(command, std::regex("^select \\d+$")))
-            // "select [number]"
+        else if (std::regex_match(command, std::regex("^select \\d+$"))
+                 || std::regex_match(command, std::regex("^sel \\d+$"))
+                 || std::regex_match(command, std::regex("^s \\d+$")))
+            // "select [number]", "sel [number]", "s [number]"
         {
             taskAction(parentTask, command, 
                 [&subTasks](int selectedTask) { 
@@ -96,8 +100,10 @@ TasksMenu::Result TasksMenu::inputCommands(Task& parentTask, bool generalCommand
                 }
             );
         }
-        else if (std::regex_match(command, std::regex("^delete \\d+$")))
-            // "delete [number]"
+        else if (std::regex_match(command, std::regex("^delete \\d+$"))
+                 || std::regex_match(command, std::regex("^del \\d+$"))
+                 || std::regex_match(command, std::regex("^d \\d+$")))
+            // "delete [number]", "del [number]", "d [number]"
         {
             taskAction(parentTask, command, 
                 [&parentTask, &subTasks](int selectedTask) { 
@@ -121,7 +127,7 @@ void TasksMenu::print(Task& parentTask)
 
         printTasks(parentTask.getSubTasks());
 
-        std::cout << "\nEnter \"help\" to get list of avaiable commands.\n";
+        std::cout << "\nEnter \"help\" or \"h\" to get list of available commands.\n";
 
         if (inputCommands(parentTask, false) == Result::Back)
         {
@@ -139,14 +145,14 @@ void TasksMenu::printHelp(Task& parentTask)
         std::cout << "Help\n\n";
 
         std::map<std::string, std::string> commandsDescriptions = {
-            {"help", "Opens this menu."},
-            {"back", "Turns back to previous menu."},
-            {"exit", "Exit app."},
-            {"select [number]", "Selects task by the index."},
-            {"complete [number]", "Complete task and all its subtasks by the index."},
-            {"uncomplete [number]", "Uncomplete task by the index."},
-            {"create", "Creates a new task"},
-            {"delete [number]", "Deletes a task by the index."}
+            {"h, help", "Opens this menu."},
+            {"b, back", "Turns back to previous menu."},
+            {"e, exit", "Exit app."},
+            {"s, sel, select [number]", "Selects task by the index."},
+            {"c, complete [number]", "Complete task and all its subtasks by the index."},
+            {"u, uncomplete [number]", "Uncomplete task by the index."},
+            {"n, new", "Creates a new task"},
+            {"d, del, delete [number]", "Deletes a task by the index."}
         };
 
         Console::printTable(commandsDescriptions, " - ");
